@@ -26,3 +26,5 @@ pre-commit install
 - Also connect up the db you plan to use in the settings.py file
 - Feel free to rename the folder django_project to a more descriptive name
 - By default on get and post methods are allowed, you can greenlight other methods by adding them in the function.json config
+# slackronym
+slack acronym bot for defining bespoke lingo
