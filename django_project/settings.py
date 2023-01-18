@@ -20,7 +20,7 @@ FUNCTION_APP_PATH = "api/manage"
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-2j%zcix$_11p)i+bmxwz*qiea%97hr7+sw%e*f!*3$^!lzlx-&"
+SECRET_KEY = "some-key"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
