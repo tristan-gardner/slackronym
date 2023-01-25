@@ -24,7 +24,7 @@ class DefineView(views.APIView):
         definitions: List[Definition] = []
 
         argument = request_data["text"]
-        args = argument.split("=")
+        args = argument.split("=", maxsplit=1)
         if len(args) == 1:
             term = args[0]
             definitions = get_definitions(term)

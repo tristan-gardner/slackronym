@@ -16,6 +16,8 @@ import os
 import sys
 from pathlib import Path
 
+from config import DB_HOST, DB_NAME, DB_PASSWORD, DB_USER
+
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 local_settings = {}
 try:
@@ -50,24 +52,24 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "main",
-    "django.contrib.admin",
+    # "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "whitenoise.runserver_nostatic",
+    # "django.contrib.sessions",
+    # "django.contrib.messages",
+    # "django.contrib.staticfiles",
+    # "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "django.middleware.security.SecurityMiddleware",
+    # "django.contrib.sessions.middleware.SessionMiddleware",
+    # "django.middleware.common.CommonMiddleware",
+    # "django.middleware.csrf.CsrfViewMiddleware",
+    # "django.contrib.auth.middleware.AuthenticationMiddleware",
+    # "django.contrib.messages.middleware.MessageMiddleware",
+    # "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "django_project.urls"
@@ -81,8 +83,8 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
+                # "django.contrib.auth.context_processors.auth",
+                # "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -105,18 +107,16 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "mssql",
-            "NAME": get_local_or_env("DB_NAME"),
+            "NAME": get_local_or_env("DB_NAME", DB_NAME),
             "PORT": 1433,
-            "USER": get_local_or_env("DB_USER"),
-            "PASSWORD": get_local_or_env("DB_PASSWORD"),
-            "HOST": get_local_or_env("DB_HOST"),
+            "USER": get_local_or_env("DB_USER", DB_USER),
+            "PASSWORD": get_local_or_env("DB_PASSWORD", DB_PASSWORD),
+            "HOST": get_local_or_env("DB_HOST", DB_HOST),
             "OPTIONS": {
                 "driver": "ODBC Driver 17 for SQL Server",
-                "extra_params": (
-                    "Authentication=ActiveDirectoryServicePrincipal;TrustServerCertificate=yes"
-                ),
+                "extra_params": "Authentication=ActiveDirectoryServicePrincipal",
             },
-        }
+        },
     }
 
 
@@ -124,18 +124,18 @@ else:
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    # },
 ]
 
 
