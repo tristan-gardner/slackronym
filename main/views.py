@@ -5,7 +5,7 @@ from urllib.parse import unquote
 from django.http import HttpResponse
 from rest_framework import views
 
-from main.manager import create_definition, get_definitions
+from main.manager import create_definition, delete_definition, delete_definitions, get_definitions
 from main.models import Definition
 from main.serializers import CreateDefintionSerializer
 
@@ -40,6 +40,38 @@ class ListDefinitionsView(views.APIView):
         terms = list(set(d.term for d in definitions))
         terms.sort()
         response_text = "\n".join(terms)
+        return HttpResponse(response_text)
+
+
+class DeleteDefinitionView(views.APIView):
+    def get(self, request):
+        return self._handle(request)
+
+    def post(self, request):
+        return self._handle(request)
+
+    def _handle(self, request):
+        request_data = convert_x_www_form_data_to_dict(request.body.decode("utf-8"))
+        if "text" not in request_data:
+            return HttpResponse("")
+
+        argument = request_data["text"]
+        args = argument.split(":")
+        if len(args) == 1:
+            term = args[0]
+            delete_definitions(term)
+            response_text = f"Deleted all definitions for {term}"
+
+        elif len(args) == 2:
+            term, definition_number = args
+            definition_number = definition_number.strip()
+            if not definition_number.isdigit():
+                return HttpResponse(f"{definition_number} is not a valid definition number")
+
+            definition_number = int(definition_number)
+            delete_definition(term, definition_number)
+            response_text = f"Deleted definition {definition_number} for {term}"
+
         return HttpResponse(response_text)
 
 
