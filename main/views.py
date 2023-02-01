@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from rest_framework import views
 
 from main.manager import create_definition, get_definitions
+from main.models import Definition
 from main.serializers import CreateDefintionSerializer
 
 
@@ -21,7 +22,27 @@ def format_incoming_slack_message(text: str) -> str:
     return spaced_def.replace("\\+", "+").replace("\+", "+")
 
 
-# slack route
+class HealthCheckView(views.APIView):
+    def get(self, request):
+        return HttpResponse("OK")
+
+
+# slack routes
+class ListDefinitionsView(views.APIView):
+    def get(self, request):
+        return self._handle(request)
+
+    def post(self, request):
+        return self._handle(request)
+
+    def _handle(self, request):
+        definitions = Definition.objects.all()
+        terms = list(set(d.term for d in definitions))
+        terms.sort()
+        response_text = "\n".join(terms)
+        return HttpResponse(response_text)
+
+
 class DefineView(views.APIView):
     def post(self, request):
         return self._handle_request(request)
