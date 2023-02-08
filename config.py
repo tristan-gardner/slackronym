@@ -1,14 +1,10 @@
-from key_vault import get_secret
+import os
 
 KEY_VAULT_NAME = "KV-ROOPUSE-SLACKBOT-P"
 
 
 def get_setting(name: str, default: str = None):
-    try:
-        val = get_secret(KEY_VAULT_NAME, name)["value"]
-        return val
-    except Exception:
-        return default
+    return os.getenv(name, default)
 
 
 DB_PASSWORD = get_setting("DbPassword")
