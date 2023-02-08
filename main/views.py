@@ -109,7 +109,8 @@ class DefineView(views.APIView):
         elif len(args) == 2:
             term, new_def = args
             formated_def = format_incoming_slack_message(new_def)
-            new_def = create_definition(term, formated_def)
+            formated_term = format_incoming_slack_message(term).strip()
+            new_def = create_definition(formated_term, formated_def)
             response_text = f"Added definition for {term}: {new_def.definition}"
 
         return HttpResponse(response_text)
